@@ -218,8 +218,6 @@ public class HospitalManagementController {
 					mv.addObject("plist1",p1);
 					List<MedicineMaster> mmed=ps.getAllMedicine();
 					MedicineMaster sno=null;
-					//Gson gson = new GsonBuilder().setPrettyPrinting().create();
-					//String sno=new Gson().toJson(mmed);
 					String name=req.getParameter("getmed");
 					if(name!=null) {
 						for(MedicineMaster x:mmed) {
@@ -387,16 +385,6 @@ public class HospitalManagementController {
         return "deletePatient";}
 		else return "ErrorPage";
     }
-	/*
-	@RequestMapping("/delete-patient")
-	public String deleteProfile(Model model,@ModelAttribute Patient pt,HttpServletRequest req) {
-		HttpSession ses=req.getSession(true);
-		if(ses.getAttribute("uname")!=null) {
-			model.addAttribute("patient",pt);
-		return "deletePatient";}
-		else return "Login";
-	}
-	*/
 	@RequestMapping(value="/del-patient" ,method=RequestMethod.POST)
 	public String deletePatient(@ModelAttribute("patient") Patient pt) {
 		ps.deletePatient(pt);
