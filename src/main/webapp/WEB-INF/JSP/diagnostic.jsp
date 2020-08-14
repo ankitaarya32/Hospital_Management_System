@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" errorPage="Error.jsp" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -67,6 +67,8 @@ th{background-color:#3d3d5c;color:white;}
 
 
 <button id="issue1">Issue Diagnostic</button>
+ 
+<%--
 <div id="issue" >
 <table border="1">
 <tr>
@@ -78,6 +80,7 @@ th{background-color:#3d3d5c;color:white;}
 
 <td><form  method="get">
 <input type="hidden" name="searpatientId" value="${patients.patientId }" >
+
 <select name="getmed" onchange="myfun()" id="diagnose" required>
 <option value="">--Select--</option>
 <c:forEach items="${diaglist}" var="p1">
@@ -96,8 +99,33 @@ th{background-color:#3d3d5c;color:white;}
 <input type="hidden" name="searpatientId" value="${patients.patientId }" >
 <input type="hidden" name="getmed"  value="${diag.nameOfTest }">
 <input type="submit" value="ADD">
-</form>
+</form>  
+
 <button><a href="/get-patient-detail/3?searpatientId=${patients.patientId }">Refresh</a></button>
+</div>
+ --%>
+
+<div id="issue" >
+<table border="1">
+<form action="/get-patient-detail/3" method="get">
+<tr>
+<th>Name Of Diagnostic</th><th>Amount</th></tr>
+<tr>
+<td>
+<input type="hidden" name="searpatientId" value="${patients.patientId }" >
+ <select id="test_id" name="getmed" class="input100 form-control">
+ <option value="">--Select--</option>
+<c:forEach items="${diaglist}" var="test">
+<option value="${test.nameOfTest}">${test.nameOfTest}</option>
+</c:forEach>
+</select>
+</td>
+<td><input type="submit" value="ADD"></td>
+</tr>
+</form>
+</table>
+<button><a href="/get-patient-detail/3?searpatientId=${patients.patientId }">Refresh</a></button>
+
 </div>
 <br>
 

@@ -1,15 +1,28 @@
 package com.tcs.assignment;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
+import com.tcs.assignment.bean.MasterDiagnostic;
+import com.tcs.assignment.bean.MedicineMaster;
+import com.tcs.assignment.bean.Patient;
+import com.tcs.assignment.bean.PatientDaignostic;
+import com.tcs.assignment.bean.PatientMedicine;
+import com.tcs.assignment.bean.login;
+import com.tcs.assignment.repository.DiagnosticRepo;
+import com.tcs.assignment.repository.MasterDaignosticRepo;
+import com.tcs.assignment.repository.MastermedRepo;
+import com.tcs.assignment.repository.MedicineRepo;
+import com.tcs.assignment.repository.PatientRepo;
+import com.tcs.assignment.repository.loginRepo;
 
 @Service
 public class PatientService {
@@ -29,7 +42,13 @@ public class PatientService {
 	
 	
 	public login checkLoginuser(login ln) {
-		System.out.println("login details"+ln);
+		List<login> lx=(List<login>) lrepo.findAll();
+		if(lx.size()<3) {
+		login l1=new login(101,"admin","tcs","admin");
+		login l2=new login(102,"admin1","tcs","registration desk");
+		login l3=new login(103,"admin2","tcs","Pharmacist");
+		login l4=new login(104,"admin3","tcs","Diagnostic");
+		lrepo.save(l1);lrepo.save(l2);lrepo.save(l3);lrepo.save(l4);}
 		//List<login> lns=lrepo.findByUsername(ln.getUsername());
 		List<login> lns=lrepo.findByUsernameAndPassword(ln.getUsername(), ln.getPassword());
 		System.out.println("after verify"+lns);
@@ -202,14 +221,39 @@ public PatientMedicine getpatientMedicineBymedId(int id) {
 	public PatientDaignostic getPatientDiagnosticBydiagId(int id) {
 		PatientDaignostic pd=null;
 		List<PatientDaignostic> l1=(List<PatientDaignostic>) pdiag.findAll();
-			System.out.println("from get patient"+l1);
 			for(PatientDaignostic p:l1) {
 				if(p.getDiag_pait_id()==id) pd=p;
 			}
 		return pd;
 	}
-	public void updateMastermedicine(MedicineMaster pt) {
-		mmed.save(pt);
+	public byte updateMastermedicine(MedicineMaster pt) {
+		List<MedicineMaster> l1=mmed.findAll();
+		byte x=1;
+		for(MedicineMaster px:l1) {
+			if(pt.getMedicineId()==px.getMedicineId() || pt.getMedicineName().equalsIgnoreCase(px.getMedicineName()))
+				x=0;
+		}
+		if(x==1) {
+		mmed.saveAndFlush(pt);}
+		return x;
 	}
 	
+	public byte addMasterDiagnostic(MasterDiagnostic pt) {
+		List<MasterDiagnostic> l1=mdiag.findAll();
+		byte x=1;
+		for(MasterDiagnostic px:l1) {
+			if(pt.getTestId()==px.getTestId() || pt.getNameOfTest().equalsIgnoreCase(px.getNameOfTest()))
+				x=0;
+		}
+		if(x==1) {
+		mdiag.saveAndFlush(pt);}
+		return x;
+	}
+	
+	public void deleteMasterDiagnostic(int id) {
+		mdiag.deleteById(id);
+	}
+	public void deleteMedicineMaster(int id) {
+		mmed.deleteById(id);
+	}
 }

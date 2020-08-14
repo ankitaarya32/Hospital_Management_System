@@ -76,7 +76,12 @@ th{background-color:#3d3d5c;color:white;}
 
 
 <h5>Grand Total :${total}</h5>
+<c:if test="${patients.status.equalsIgnoreCase('Active') }">
 <button><a href="/update-status-patient/${patients.patientId}">Confirm</a></button>
+</c:if>
+<c:if test="${patients.status.equalsIgnoreCase('Discharged') }">
+<p style="color:red;"> Patient got discharged</p>
+</c:if>
 </c:if>
 </div>
 </center>

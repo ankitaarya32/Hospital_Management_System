@@ -27,8 +27,8 @@ width: 250px;
 <tr><th colspan="2">Login</th></tr>
 <form:form method="POST" modelAttribute="login" action="/checkLogin" name="login">
 <tr>
-<td>User Name</td><td> <form:input path="username" placeholder="username" required="true" pattern=".{8,}" minlength="8" title="usename should be alphanumeric and minumum 8 character"/></td></tr>
-<tr><td>Password </td><td> <form:input type="password" path="password" placeholder="password" required="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}" title="password must be minimum 10 character and having one upper,one lower,one special and numeric"/></td></tr>
+<td>User Name</td><td> <form:input path="username" placeholder="username" required="true" /></td></tr>
+<tr><td>Password </td><td> <form:input type="password" path="password" placeholder="password" required="true" /></td></tr>
 <tr><td colspan="2"><input type="submit" value="Login" style="background-color:#80aaff;margin-left:30%"> </td></tr>
 </form:form>
 </table>
