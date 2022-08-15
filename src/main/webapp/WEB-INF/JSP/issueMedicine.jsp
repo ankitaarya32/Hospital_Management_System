@@ -23,7 +23,8 @@ $(document).ready(function(){
 </script>
 </c:if>
 <script type="text/javascript">
-var baseurl = "http://localhost:8082/ajaxtest";
+var originurl=window.location.origin;
+var baseurl = originurl+"/ajaxtest";
 var datas;
 function getMedicine(){
   var xmlhttp = new XMLHttpRequest();
