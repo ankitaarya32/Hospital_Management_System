@@ -34,5 +34,11 @@ width: 250px;
 </table>
 <h5>${ermsg }</h5>
 </div>
+
+<div style="text-align:center">
+Login creds:-
+username - admin, admin1,admin2,admin3
+password - tcs
+</div>
 </body>
 </html>
